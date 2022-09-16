@@ -11,31 +11,39 @@ const initialState = {
     lista: []
 }
 export default class CrudAluno extends Component {
+
     state = { ...initialState }
+
     componentDidMount() {
         axios(urlAPI).then(resp => {
             this.setState({ lista: resp.data })
         })
     }
+
     limpar() {
         this.setState({ aluno: initialState.aluno });
     }
+
     salvar() {
         const aluno = this.state.aluno;
         aluno.codCurso = Number(aluno.codCurso);
-        const metodo = 'post';
-        axios[metodo](urlAPI, aluno)
+        const metodo = aluno.id ? 'put' : 'post';
+        const url = aluno.id ? `${urlAPI}/${aluno.id}` : urlAPI;
+
+
+        axios[metodo](url, aluno)
             .then(resp => {
                 const lista = this.getListaAtualizada(resp.data)
                 this.setState({ aluno: initialState.aluno, lista })
             })
     }
 
-    getListaAtualizada(aluno) {
+    getListaAtualizada(aluno, add = true) {
         const lista = this.state.lista.filter(a => a.id !== aluno.id);
-        lista.unshift(aluno);
+        if (add) lista.unshift(aluno);
         return lista;
     }
+
     atualizaCampo(event) {
         //clonar usuário a partir do state, para não alterar o state diretamente
         const aluno = { ...this.state.aluno };
@@ -60,6 +68,8 @@ export default class CrudAluno extends Component {
                 })
         }
     }
+
+
     renderForm() {
         return (
             <div className="inclui-container">
@@ -73,7 +83,6 @@ export default class CrudAluno extends Component {
 
                     value={this.state.aluno.ra}
 
-                    
                     onChange={e => this.atualizaCampo(e)}
                 />
                 <label> Nome: </label>
@@ -93,6 +102,8 @@ export default class CrudAluno extends Component {
                     type="number"
                     id="codCurso"
                     placeholder="0"
+
+
                     className="form-input"
                     name="codCurso"
 
@@ -110,7 +121,46 @@ export default class CrudAluno extends Component {
             </div>
         )
     }
-    
+
+
+
+    renderTable() {
+        return (
+            <div className="listagem">
+                <table className="listaAlunos" id="tblListaAlunos">
+                    <thead>
+                        <tr className="cabecTabela">
+                            <th className="tabTituloRa">Ra</th>
+                            <th className="tabTituloNome">Nome</th>
+                            <th className="tabTituloCurso">Curso</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {this.state.lista.map(
+                            (aluno) =>
+
+                                <tr key={aluno.id}>
+                                    <td>{aluno.ra}</td>
+                                    <td>{aluno.nome}</td>
+                                    <td>{aluno.codCurso}</td>
+                                    <td>
+                                        <button onClick={() => this.carregar(aluno)} >
+                                            Altera
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button onClick={() => this.remover(aluno)} >
+                                            Remove
+                                        </button>
+                                    </td>
+                                </tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
+        )
+    }
     render() {
         return (
             <Main title={title}>
