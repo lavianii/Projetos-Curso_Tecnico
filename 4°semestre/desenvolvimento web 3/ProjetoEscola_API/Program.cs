@@ -30,6 +30,10 @@ builder.Services.AddDbContext<EscolaContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("StringConexaoSQLServer"));
 });
 
+builder.Services.AddDbContext<CursoContext>(options => {
+    options.UseSqlServer(builder.Configuration.GetConnectionString("StringConexaoSQLServer"));
+});
+
 var app = builder.Build();
 
 

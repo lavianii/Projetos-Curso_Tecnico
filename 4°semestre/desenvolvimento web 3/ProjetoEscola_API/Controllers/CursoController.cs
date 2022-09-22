@@ -7,28 +7,27 @@ namespace ProjetoEscola_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AlunoController : Controller
-    {
 
-        private readonly EscolaContext _context;
-        public AlunoController(EscolaContext context)
+    public class CursoController : Controller
+    {
+        private readonly CursoContext _context;
+        public CursoController(CursoContext context)
         {
-            //construtor
             _context = context;
         }
 
         [HttpGet]
-        public ActionResult<List<Aluno>> GetAll()
+        public ActionResult<List<Curso>> GetAll()
         {
-            return _context.Aluno.ToList();
+            return _context.Curso.ToList();
         }
 
-        [HttpGet("AlunoId")]
-        public ActionResult<List<Aluno>> Get(int AlunoId)
+        [HttpGet("CursoId")]
+        public ActionResult<List<Curso>> Get(int CursoId)
         {
             try
             {
-                var result = _context.Aluno.Find(AlunoId);
+                var result = _context.Curso.Find(CursoId);
                 if (result == null)
                 {
                     return NotFound();
@@ -38,49 +37,52 @@ namespace ProjetoEscola_API.Controllers
             catch
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, "Falha no acesso ao banco de dados.");
+
             }
         }
 
         [HttpPost]
-        public async Task<ActionResult> post(Aluno model)
+        public async Task<ActionResult> post(Curso model)
         {
             try
             {
-                _context.Aluno.Add(model);
+                _context.Curso.Add(model);
                 if (await _context.SaveChangesAsync() == 1)
                 {
-                    //return Ok();
-                    return Created($"/api/aluno/{model.ra}", model);
+                    return Created($"/api/curso/{model.codCurso}", model);
                 }
             }
             catch
             {
+
                 return this.StatusCode(StatusCodes.Status500InternalServerError, "Falha no acesso ao banco de dados.");
             }
-            // retorna BadRequest se não conseguiu incluir
+
             return BadRequest();
         }
 
-        [HttpDelete("{AlunoId}")]
-        public async Task<ActionResult> delete(int AlunoId)
+        [HttpDelete("{CursoId}")]
+        public async Task<ActionResult> delete(int CursoId)
         {
             try
             {
-                //verifica se existe aluno a ser excluído
-                var aluno = await _context.Aluno.FindAsync(AlunoId);
-                if (aluno == null)
+                var curso = await _context.Curso.FindAsync(CursoId);
+                if (curso == null)
                 {
-                    //método do EF
                     return NotFound();
                 }
-                _context.Remove(aluno);
+                _context.Remove(curso);
                 await _context.SaveChangesAsync();
                 return NoContent();
+
             }
             catch
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, "Falha no acesso ao banco de dados.");
+
             }
         }
     }
+
+
 }
