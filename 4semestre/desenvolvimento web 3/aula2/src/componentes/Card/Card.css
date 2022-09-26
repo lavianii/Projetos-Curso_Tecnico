@@ -1,0 +1,28 @@
+.card {
+    background-color: red;
+    border: 3px solid red;
+    border-radius: 10px;
+    overflow: hidden;
+    font-family: Roboto;
+    text-align: center;
+    margin: 10px;
+
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+    max-width: 300px;
+}
+
+.card .titulo {
+    padding: 5px 0px;
+    display: flex;
+    justify-content: center;
+    color: white;
+}
+
+.card .conteudo {
+    background-color: white;
+    color: black;
+    padding: 10px;
+    flex-grow: 1;
+}
