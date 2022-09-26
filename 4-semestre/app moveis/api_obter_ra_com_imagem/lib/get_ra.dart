@@ -71,8 +71,20 @@ class _GetRaState extends State<GetRa> {
                                 Text(
                                   'Ra: ${data[index].ra}',
                                   style: const TextStyle(
-                                      color: Color.fromARGB(255, 0, 4, 226),
-                                      fontSize: 40),
+                                      color: Color.fromARGB(255, 42, 7, 240),
+                                      fontSize: 30),
+                                ),
+                                Text(
+                                  'Latidtude: ${data[index].lat}',
+                                  style: const TextStyle(
+                                      color: Color.fromARGB(255, 42, 7, 240),
+                                      fontSize: 30),
+                                ),
+                                Text(
+                                  'Latidtude: ${data[index].log}',
+                                  style: const TextStyle(
+                                      color: Color.fromARGB(255, 42, 7, 240),
+                                      fontSize: 30),
                                 ),
                               ],
                             ),
