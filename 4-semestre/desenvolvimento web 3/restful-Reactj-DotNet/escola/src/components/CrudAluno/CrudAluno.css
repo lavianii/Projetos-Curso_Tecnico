@@ -29,6 +29,7 @@ td {
 
 .tabTituloNome {
     width: 400px;
+    text-align: center;
 }
 
 input[type=text] {
@@ -46,7 +47,7 @@ input[type=number] {
 .inclui-container {
     margin: 20px;
     border-radius: 5px;
-    background-color: #d80000;
+    background-color: #f1b6b69f;
     padding: 20px;
 }
 

@@ -1,3 +1,10 @@
-.tabela {
-  background-color: bisque;
+.listaCursos {
+    margin-left: 20px;
+}
+.container-lista{
+   margin-top: 20px;
+}
+th,
+td {
+    padding: 10px;
 }
