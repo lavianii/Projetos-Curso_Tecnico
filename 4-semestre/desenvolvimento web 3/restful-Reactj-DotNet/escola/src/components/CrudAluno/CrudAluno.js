@@ -122,8 +122,6 @@ export default class CrudAluno extends Component {
         )
     }
 
-
-
     renderTable() {
         return (
             <div className="listagem">
