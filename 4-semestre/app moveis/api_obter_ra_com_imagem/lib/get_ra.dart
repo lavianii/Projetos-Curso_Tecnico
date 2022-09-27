@@ -1,8 +1,10 @@
-import 'package:flutter/material.dart';
-import 'dados.dart';
-import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+import 'dados.dart';
 
 const String url = "https://www.slmm.com.br/CTC/ctcApi.php";
 
