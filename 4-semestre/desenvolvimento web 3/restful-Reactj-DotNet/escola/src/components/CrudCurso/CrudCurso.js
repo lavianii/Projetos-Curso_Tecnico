@@ -8,9 +8,22 @@ const title = "Cadastro de Cursos";
 
 export default function CrudCurso() {
 
+    //criado um useState do tipo array para 
+    //fazer a listagem dos cursos
     const [curso, setCurso] = useState([]);
-    const [post, setPost] = useState();
 
+    //foi criado um useState para cada input
+    //para passar o valor
+    const [codCurso, setCodCurso] = useState(0);
+    const [nomeCurso, setNomeCurso] = useState('');
+    const [periodo, setPeriodo] = useState('');
+    //criando o obejto para passar os valores dos useState
+    const estadoInicial = {
+        id: 0,
+        codCurso: codCurso,
+        nomeCurso: nomeCurso,
+        periodo: periodo
+    }
 
     //get usando a url
     useEffect(() => {
@@ -21,27 +34,40 @@ export default function CrudCurso() {
 
     }, [])
 
-
-    const createPost = () => {
-        axios.post(urlCurso, {
-            id: 0,
-            codCurso: 0,
-            nomeCurso: '',
-            periodo: ''
-        }).then((resultado) => {
-            setPost(resultado.data);
-            console.log(resultado.data)
-        })
-        window.location.reload(false);
-
-        if (!post)
-            return 'Não aconteceu o post'
+    //faz o post
+    const fazPost = () => {
+        axios.post(`${urlCurso}/`, estadoInicial)
+            .then((resultado) => {
+                console.log(resultado.data + " Deu certo");
+                window.location.reload(false);
+            });
 
     }
 
+    //faz o delete
     const deletar = (id) => {
         axios.delete(`${urlCurso}/` + id)
         window.location.reload(false);
+    }
+
+    const atualizarCampo = (evento) => {
+
+        const state = { ...estadoInicial }
+        const curso = { ...state.curso }
+
+        curso[evento.target.name] = evento.target.value;
+
+        setCurso({ curso });
+     
+    }
+
+    const carregarCampo = (curso) => {
+        setCurso({ curso })
+    }
+
+
+    const fazPut = () => {
+
     }
 
     return (
@@ -55,7 +81,10 @@ export default function CrudCurso() {
                         placeholder="0"
                         className="form-input"
                         name="codigo"
-                        value={post}
+                        value={codCurso}
+                        onChange={(evento) => {
+                            setCodCurso(evento.target.value);
+                        }}
                     />
                     <label> Nome do curso: </label>
                     <input
@@ -64,7 +93,10 @@ export default function CrudCurso() {
                         placeholder="Nome do curso"
                         className="form-input"
                         name="nome"
-                        value={post}
+                        value={nomeCurso}
+                        onChange={(evento) => {
+                            setNomeCurso(evento.target.value);
+                        }}
                     />
                     <label> Periodo: </label>
                     <input
@@ -73,15 +105,16 @@ export default function CrudCurso() {
                         placeholder="Periodo"
                         className="form-input"
                         name="periodo"
-                        value={post}
-                    />
-                    <button className="btnSalvar"
-                        onClick={() => {
-                            window.location.reload(false);
-                            createPost()
+                        value={periodo}
+                        onChange={(evento) => {
+                            setPeriodo(evento.target.value);
                         }}
-                    >
-                        Adicionar
+                    />
+                    <button 
+                        className="btnSalvar"
+                        onClick={() => fazPost()}>
+
+                        Salvar
                     </button>
                 </div>
                 <div className="container-lista">
@@ -102,14 +135,16 @@ export default function CrudCurso() {
                                         <td>{cursoMap.nomeCurso}</td>
                                         <td>{cursoMap.periodo}</td>
                                         <td>
-                                            <button onClick={() => {
-
-                                            }} >
-                                                Altera
+                                            <button
+                                            onClick={() => {carregarCampo(cursoMap)}}
+                                            >
+                                                Alterar
                                             </button>
                                         </td>
                                         <td>
-                                            <button onClick={() => deletar(cursoMap.id)} >
+                                            <button 
+                                                className="btnRemover"
+                                                onClick={() => deletar(cursoMap.id)} >
                                                 Remove
                                             </button>
                                         </td>
