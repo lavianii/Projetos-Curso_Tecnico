@@ -15,59 +15,56 @@ export default function CrudCurso() {
     //foi criado um useState para cada input
     //para passar o valor
     const [codCurso, setCodCurso] = useState(0);
+    const [id, setId] = useState(0);
     const [nomeCurso, setNomeCurso] = useState('');
     const [periodo, setPeriodo] = useState('');
-    //criando o obejto para passar os valores dos useState
-    const estadoInicial = {
-        id: 0,
-        codCurso: codCurso,
-        nomeCurso: nomeCurso,
-        periodo: periodo
-    }
 
     //get usando a url
     useEffect(() => {
         axios.get(urlCurso)
-            .then((resultado) => {
-                setCurso(resultado.data);
+        .then((resultado) => {
+            setCurso(resultado.data);
             })
 
     }, [])
 
     //faz o post
     const fazPost = () => {
-        axios.post(`${urlCurso}/`, estadoInicial)
-            .then((resultado) => {
-                console.log(resultado.data + " Deu certo");
-                window.location.reload(false);
-            });
+        axios.post(`${urlCurso}/`, {
+            id,
+            codCurso,
+            nomeCurso,
+            periodo,
+        }).then((resultado) => {
+            console.log(resultado.data + " Deu certo");
+            window.location.reload(false);
+        });
 
+            
     }
 
     //faz o delete
     const deletar = (id) => {
-        axios.delete(`${urlCurso}/` + id)
+        axios.delete(`${urlCurso}/` + id);
         window.location.reload(false);
     }
 
-    const atualizarCampo = (evento) => {
-
-        const state = { ...estadoInicial }
-        const curso = { ...state.curso }
-
-        curso[evento.target.name] = evento.target.value;
-
-        setCurso({ curso });
-     
-    }
-
-    const carregarCampo = (curso) => {
-        setCurso({ curso })
+    const atualizarCampo = (id, codCurso, nomeCurso, periodo) => {
+        setId(id)
+        setCodCurso(codCurso)
+        setNomeCurso(nomeCurso)
+        setPeriodo(periodo)
     }
 
 
     const fazPut = () => {
-
+        axios.put(`${urlCurso}/${id}`, {
+            id,
+            codCurso,
+            nomeCurso,
+            periodo
+        });
+        
     }
 
     return (
@@ -110,11 +107,18 @@ export default function CrudCurso() {
                             setPeriodo(evento.target.value);
                         }}
                     />
-                    <button 
+                    <button
                         className="btnSalvar"
                         onClick={() => fazPost()}>
 
                         Salvar
+                    </button>
+
+                    <button
+                        className="btnSalvar"
+                        onClick={() => fazPut()}>
+
+                        Salvar Alteração
                     </button>
                 </div>
                 <div className="container-lista">
@@ -136,13 +140,20 @@ export default function CrudCurso() {
                                         <td>{cursoMap.periodo}</td>
                                         <td>
                                             <button
-                                            onClick={() => {carregarCampo(cursoMap)}}
+                                                onClick={() => {
+                                                    atualizarCampo(
+                                                        cursoMap.id,
+                                                        cursoMap.codCurso,
+                                                        cursoMap.nomeCurso,
+                                                        cursoMap.periodo
+                                                    )
+                                                }}
                                             >
                                                 Alterar
                                             </button>
                                         </td>
                                         <td>
-                                            <button 
+                                            <button
                                                 className="btnRemover"
                                                 onClick={() => deletar(cursoMap.id)} >
                                                 Remove
