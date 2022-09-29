@@ -8,18 +8,13 @@ const title = "Cadastro de Cursos";
 
 export default function CrudCurso() {
 
-    //criado um useState do tipo array para 
-    //fazer a listagem dos cursos
     const [curso, setCurso] = useState([]);
 
-    //foi criado um useState para cada input
-    //para passar o valor
     const [codCurso, setCodCurso] = useState(0);
     const [id, setId] = useState(0);
     const [nomeCurso, setNomeCurso] = useState('');
     const [periodo, setPeriodo] = useState('');
-
-    //get usando a url
+    
     useEffect(() => {
         axios.get(urlCurso)
         .then((resultado) => {
@@ -39,8 +34,7 @@ export default function CrudCurso() {
             console.log(resultado.data + " Deu certo");
             window.location.reload(false);
         });
-
-            
+        
     }
 
     //faz o delete
@@ -49,14 +43,7 @@ export default function CrudCurso() {
         window.location.reload(false);
     }
 
-    const atualizarCampo = (id, codCurso, nomeCurso, periodo) => {
-        setId(id)
-        setCodCurso(codCurso)
-        setNomeCurso(nomeCurso)
-        setPeriodo(periodo)
-    }
-
-
+    //faz put
     const fazPut = () => {
         axios.put(`${urlCurso}/${id}`, {
             id,
@@ -64,13 +51,27 @@ export default function CrudCurso() {
             nomeCurso,
             periodo
         });
-        
+        window.location.reload(false);
     }
+    const atualizarCampo = (id, codCurso, nomeCurso, periodo) => {
+        setId(id)
+        setCodCurso(codCurso)
+        setNomeCurso(nomeCurso)
+        setPeriodo(periodo)
+    }
+    const limpaCampo = () => {
+        setId();
+        setCodCurso(0);
+        setNomeCurso('');
+        setPeriodo('');
+    }
+    
 
     return (
         <>
             <Main title={title}>
                 <div className="inclui-container">
+                    <strong><label>Id: {id}</label></strong>
                     <label> Codigo do curso: </label>
                     <input
                         type="number"
@@ -115,10 +116,15 @@ export default function CrudCurso() {
                     </button>
 
                     <button
-                        className="btnSalvar"
+                        className="btnAlterar"
                         onClick={() => fazPut()}>
+                     Alterar
+                    </button>
+                    <button
+                        className="btnRemover"
+                        onClick={() => limpaCampo() }>
 
-                        Salvar Alteração
+                    Cancelar
                     </button>
                 </div>
                 <div className="container-lista">
@@ -140,13 +146,14 @@ export default function CrudCurso() {
                                         <td>{cursoMap.periodo}</td>
                                         <td>
                                             <button
+                                            className="btnAlterar"
                                                 onClick={() => {
                                                     atualizarCampo(
                                                         cursoMap.id,
                                                         cursoMap.codCurso,
                                                         cursoMap.nomeCurso,
                                                         cursoMap.periodo
-                                                    )
+                                                    );
                                                 }}
                                             >
                                                 Alterar

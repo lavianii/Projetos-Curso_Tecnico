@@ -60,6 +60,29 @@ namespace ProjetoEscola_API.Controllers
 
             return BadRequest();
         }
+        [HttpPut("{CursoId}")]
+        public async Task<IActionResult> put(int CursoId, Curso dadosCurso)
+        {
+            try
+            {
+                var result = await _context.Curso.FindAsync(CursoId);
+                if(CursoId != result.id){
+                    return BadRequest();
+                }
+                result.codCurso = dadosCurso.codCurso;
+                result.nomeCurso = dadosCurso.nomeCurso;
+                result.periodo = dadosCurso.periodo;
+
+                await _context.SaveChangesAsync();
+
+                return Created($"/api/curso/{dadosCurso.codCurso}", dadosCurso);
+            }
+            catch
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Falhano acesso ao banco de dados.");
+                
+            }
+        }
 
         [HttpDelete("{CursoId}")]
         public async Task<ActionResult> delete(int CursoId)
