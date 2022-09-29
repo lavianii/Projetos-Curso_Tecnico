@@ -15,6 +15,7 @@ export default function CrudCurso() {
     const [nomeCurso, setNomeCurso] = useState('');
     const [periodo, setPeriodo] = useState('');
     
+    //faz o get
     useEffect(() => {
         axios.get(urlCurso)
         .then((resultado) => {
