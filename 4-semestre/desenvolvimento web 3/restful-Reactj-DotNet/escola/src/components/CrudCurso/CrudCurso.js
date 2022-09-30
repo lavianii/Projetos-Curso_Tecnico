@@ -15,50 +15,45 @@ export default function CrudCurso() {
     const [nomeCurso, setNomeCurso] = useState('');
     const [periodo, setPeriodo] = useState('');
     
-    //faz o get
     useEffect(() => {
         axios.get(urlCurso)
         .then((resultado) => {
             setCurso(resultado.data);
-            })
+        });
 
-    }, [])
+    })
 
-    //faz o post
     const fazPost = () => {
         axios.post(`${urlCurso}/`, {
             id,
             codCurso,
             nomeCurso,
             periodo,
-        }).then((resultado) => {
-            console.log(resultado.data + " Deu certo");
-            window.location.reload(false);
-        });
+        }).then(() => console.log('Criado'));
         
     }
 
-    //faz o delete
     const deletar = (id) => {
-        axios.delete(`${urlCurso}/` + id);
-        window.location.reload(false);
+        axios.delete(`${urlCurso}/` + id)
+        .then(() => {
+            console.log('Excluido');
+        });
     }
 
-    //faz put
     const fazPut = () => {
         axios.put(`${urlCurso}/${id}`, {
             id,
             codCurso,
             nomeCurso,
             periodo
-        });
-        window.location.reload(false);
+        }).then(()=> console.log('Alterado'));
+
     }
     const atualizarCampo = (id, codCurso, nomeCurso, periodo) => {
-        setId(id)
-        setCodCurso(codCurso)
-        setNomeCurso(nomeCurso)
-        setPeriodo(periodo)
+        setId(id);
+        setCodCurso(codCurso);
+        setNomeCurso(nomeCurso);
+        setPeriodo(periodo);
     }
     const limpaCampo = () => {
         setId();
@@ -67,25 +62,24 @@ export default function CrudCurso() {
         setPeriodo('');
     }
     
-
     return (
         <>
             <Main title={title}>
                 <div className="inclui-container">
-                    <strong><label>Id: {id}</label></strong>
-                    <label> Codigo do curso: </label>
+                    <strong><label className="label">Id: {id}</label></strong>
+                    <label  className="label"> Codigo do curso: </label>
                     <input
                         type="number"
                         id="codigo"
                         placeholder="0"
-                        className="form-input"
+                        className="codigo"
                         name="codigo"
                         value={codCurso}
                         onChange={(evento) => {
                             setCodCurso(evento.target.value);
                         }}
                     />
-                    <label> Nome do curso: </label>
+                    <label  className="label"> Nome do curso: </label>
                     <input
                         type="text"
                         id="nome"
@@ -97,9 +91,8 @@ export default function CrudCurso() {
                             setNomeCurso(evento.target.value);
                         }}
                     />
-                    <label> Periodo: </label>
+                    <label className="label"> Periodo: </label>
                     <input
-                        type="text"
                         id="periodo"
                         placeholder="Periodo"
                         className="form-input"

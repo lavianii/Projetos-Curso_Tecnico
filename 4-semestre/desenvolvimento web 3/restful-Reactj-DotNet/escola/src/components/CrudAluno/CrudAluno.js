@@ -6,9 +6,12 @@ import Main from '../template/Main';
 const title = "Cadastro de Alunos";
 
 const urlAPI = "http://localhost:5075/api/aluno";
+const urlCurso = "http://localhost:5075/api/curso";
 const initialState = {
     aluno: { id: 0, ra: '', nome: '', codCurso: 0 },
-    lista: []
+    lista: [],
+    curso: [] 
+
 }
 export default class CrudAluno extends Component {
 
@@ -17,6 +20,11 @@ export default class CrudAluno extends Component {
     componentDidMount() {
         axios(urlAPI).then(resp => {
             this.setState({ lista: resp.data })
+        });
+
+        axios(urlCurso).then((resp) => {
+            this.setState({ curso: resp.data })
+            console.log(resp.data)
         })
     }
 
@@ -98,7 +106,9 @@ export default class CrudAluno extends Component {
                     onChange={e => this.atualizaCampo(e)}
                 />
                 <label> Código do Curso: </label>
-                <input
+                
+
+                {/* <input
                     type="number"
                     id="codCurso"
                     placeholder="0"
@@ -109,7 +119,7 @@ export default class CrudAluno extends Component {
 
                     value={this.state.aluno.codCurso}
                     onChange={e => this.atualizaCampo(e)}
-                />
+                /> */}
                 <button className="btnSalvar"
                     onClick={e => this.salvar(e)} >
                     Salvar

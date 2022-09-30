@@ -5,7 +5,6 @@ div.content {
 }
 
 main>div {
-    background-color: rgb(54, 155, 88);
     box-shadow: 0px 0px 15px #0004;
-    padding: 20px;
+    padding: 10px;
 }
