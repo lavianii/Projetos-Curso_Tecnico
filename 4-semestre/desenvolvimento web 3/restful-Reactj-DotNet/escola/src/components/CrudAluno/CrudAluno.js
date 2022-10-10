@@ -7,10 +7,11 @@ const title = "Cadastro de Alunos";
 
 const urlAPI = "http://localhost:5075/api/aluno";
 const urlCurso = "http://localhost:5075/api/curso";
+
 const initialState = {
     aluno: { id: 0, ra: '', nome: '', codCurso: 0 },
     lista: [],
-    curso: [] 
+    curso: []
 
 }
 export default class CrudAluno extends Component {
@@ -20,10 +21,11 @@ export default class CrudAluno extends Component {
     componentDidMount() {
         axios(urlAPI).then(resp => {
             this.setState({ lista: resp.data })
-        });
+        })
 
-        axios(urlCurso).then((resp) => {
-            this.setState({ curso: resp.data })
+        axios(urlCurso)
+        .then(resp => {
+            this.setState({ curso: resp.data });
             console.log(resp.data)
         })
     }
@@ -105,21 +107,24 @@ export default class CrudAluno extends Component {
 
                     onChange={e => this.atualizaCampo(e)}
                 />
-                <label> Código do Curso: </label>
-                
+                <label>Curso: </label>
+                <select 
+                className="select" 
+                name="codCurso" 
+                value={this.state.aluno.codCurso} 
+                onChange={e => this.atualizaCampo(e)}>
 
-                {/* <input
-                    type="number"
-                    id="codCurso"
-                    placeholder="0"
-
-
-                    className="form-input"
-                    name="codCurso"
-
-                    value={this.state.aluno.codCurso}
-                    onChange={e => this.atualizaCampo(e)}
-                /> */}
+                 <option value= "disabled selected hidden">Selecione o Curso</option>
+                 
+                    {this.state.curso.map(
+                        (curso) => {
+                            return (
+                                <option  key={curso.id} value={curso.codCurso}>{curso.nomeCurso}</option>
+                            );
+                            
+                        })}
+                    
+                </select>
                 <button className="btnSalvar"
                     onClick={e => this.salvar(e)} >
                     Salvar
@@ -145,7 +150,8 @@ export default class CrudAluno extends Component {
                     </thead>
 
                     <tbody>
-                        {this.state.lista.map(
+                        {
+                        this.state.lista.map(
                             (aluno) =>
 
                                 <tr key={aluno.id}>
