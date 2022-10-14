@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Main from "../template/Main";
-import Card from "../template/Card";
+import Card from "./Card";
 
 const urlAluno = "http://localhost:5075/api/aluno";
 const urlCurso = "http://localhost:5075/api/curso";
@@ -9,82 +9,69 @@ const title = "Carômetro"
 
 export default function Carometro() {
 
-    const [cursos, setCursos] = useState([]);
-    const [alunos, setAlunos] = useState([]);
-    const [selecionaCurso, setselecionaCurso] = useState([cursos]);
+  const [cursos, setCursos] = useState([]);
+  const [alunos, setAlunos] = useState([]);
+  const [selecionaCurso, setselecionaCurso] = useState([cursos]);
 
+  useEffect(() => {
+    axios(urlAluno).then((resposta) => {
+      setAlunos(resposta.data);
+    });
+  }, []);
 
-    useEffect(() => {
-        axios.get(urlCurso, {
+  useEffect(() => {
+    axios(urlCurso).then((resposta) => {
+      setCursos(resposta.data);
+    });
+  }, []);
 
-        })
-            .then((resposta) => {
-                console.log(resposta.data);
-                setCursos(resposta.data);
-            });
+  const selecionaCursoFunc = (codCurso) => {
+    const curso = cursos.find((curso) => String(curso.codCurso) === codCurso);
 
-    }, []);
+    setselecionaCurso(curso);
+  };
 
-    useEffect(() => {
-        axios.get(urlAluno)
-            .then((resposta) => {
-                console.log(resposta.data);
-                setAlunos(resposta.data);
-            });
-
-    }, []);
-
-    const selecionaCursofunc = (codCurso) => {
-
-        const selecine = cursos.find((curso) => curso.codCurso === codCurso);
-
-        setselecionaCurso(selecine);
+  const selecionaAlunoFunc = (alunos) => {
+    if (selecionaCurso) {
+      return alunos.filter((aluno) => aluno.codCurso === selecionaCurso.codCurso);
     }
 
-    const filtrarAluno = (alunos) => {
+    return alunos;
+  };
 
-        if (selecionaCurso === true) {
-          return alunos.filter((aluno) => aluno.codCurso === selecionaCurso.codCurso);
-        };
-    
-        return alunos;
-      }
-
-    return (
-        <>
-            <Main title={title}>
-                <label>Selecione o curso: </label>
-                <select
-                    value={cursos.nomeCurso}
-                    onChange={(evento) => selecionaCursofunc(evento.target.value)}
-                >
-                    <option value="disabled selected hidden">Selecione o Curso</option>
-                    {cursos.map((curso) => {
-                        return (
-                            <option key={curso.id} value={curso.codCurso}>{curso.nomeCurso}</option>
-                        );
-                    })}
-                </select>
-
-                <div
-                 className="container-alunos">
-                    {filtrarAluno(alunos).map((aluno, index) => {
-                        return(
-                            <Card
-                                
-                                key={aluno.id}
-                                url={`https://robohash.org/${index}`}
-                            >   
-                                {aluno.ra} 
-                                {aluno.nome} 
-                                {aluno.codCurso}
-                            </Card>
-                        )
-                    })}
-                </div>
-
-            </Main>
-
-        </>
-    )
+  return (
+    <Main title={title}>
+      <div className="container">
+        <div>
+          <label>Selecione o curso: </label>
+          <select
+            onChange={(event) => selecionaCursoFunc(event.target.value)}
+            value={
+              selecionaCurso ? cursos.find((curso) => curso.nomeCurso === selecionaCurso.nomeCurso)?.codCurso : ""
+            }
+          >
+            <option>
+              Todos os cursos
+            </option>
+            {cursos.map((cursoMap) => (
+              <option value={cursoMap.codCurso} key={cursoMap.codCurso}>
+                {cursoMap.nomeCurso}
+              </option>
+            ))}
+          </select>
+        </div>
+        {selecionaAlunoFunc(alunos)
+          .map((aluno, i) => (
+            <Card
+              key={aluno.id}
+              img={`https://robohash.org/${i}`}
+              ra={aluno.ra}
+              nome={aluno.nome}
+              codCurso={aluno.codCurso}
+            />
+          ))}
+      </div>
+    </Main>
+  );
 }
+
