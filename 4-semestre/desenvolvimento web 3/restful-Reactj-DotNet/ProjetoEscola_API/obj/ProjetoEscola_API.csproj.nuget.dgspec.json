@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jonas\\Documentos\\git\\atividades-cotuca\\4-semestre\\desenvolvimento web 3\\restful-Reactj-DotNet\\ProjetoEscola_API\\ProjetoEscola_API.csproj": {}
+    "/Users/u21773/Desktop/Internet/atividades-cotuca/4-semestre/desenvolvimento web 3/restful-Reactj-DotNet/ProjetoEscola_API/ProjetoEscola_API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jonas\\Documentos\\git\\atividades-cotuca\\4-semestre\\desenvolvimento web 3\\restful-Reactj-DotNet\\ProjetoEscola_API\\ProjetoEscola_API.csproj": {
+    "/Users/u21773/Desktop/Internet/atividades-cotuca/4-semestre/desenvolvimento web 3/restful-Reactj-DotNet/ProjetoEscola_API/ProjetoEscola_API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jonas\\Documentos\\git\\atividades-cotuca\\4-semestre\\desenvolvimento web 3\\restful-Reactj-DotNet\\ProjetoEscola_API\\ProjetoEscola_API.csproj",
+        "projectUniqueName": "/Users/u21773/Desktop/Internet/atividades-cotuca/4-semestre/desenvolvimento web 3/restful-Reactj-DotNet/ProjetoEscola_API/ProjetoEscola_API.csproj",
         "projectName": "ProjetoEscola_API",
-        "projectPath": "C:\\Users\\jonas\\Documentos\\git\\atividades-cotuca\\4-semestre\\desenvolvimento web 3\\restful-Reactj-DotNet\\ProjetoEscola_API\\ProjetoEscola_API.csproj",
-        "packagesPath": "C:\\Users\\jonas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jonas\\Documentos\\git\\atividades-cotuca\\4-semestre\\desenvolvimento web 3\\restful-Reactj-DotNet\\ProjetoEscola_API\\obj\\",
+        "projectPath": "/Users/u21773/Desktop/Internet/atividades-cotuca/4-semestre/desenvolvimento web 3/restful-Reactj-DotNet/ProjetoEscola_API/ProjetoEscola_API.csproj",
+        "packagesPath": "/Users/u21773/.nuget/packages/",
+        "outputPath": "/Users/u21773/Desktop/Internet/atividades-cotuca/4-semestre/desenvolvimento web 3/restful-Reactj-DotNet/ProjetoEscola_API/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\jonas\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/u21773/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -38,6 +38,14 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[6.0.10, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[6.0.8, )"
@@ -53,8 +61,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -66,7 +73,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.202/RuntimeIdentifierGraph.json"
         }
       }
     }
