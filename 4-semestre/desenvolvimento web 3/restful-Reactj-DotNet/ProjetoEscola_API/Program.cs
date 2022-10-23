@@ -3,10 +3,18 @@ using ProjetoEscola_API.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+
+
+
+
 var builder = WebApplication.CreateBuilder(args);
+
+
 ConfigurationManager configuration = builder.Configuration;
+
 //Allow CORS
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 //Allow CORS
 builder.Services.AddCors(options =>
 {
@@ -23,11 +31,12 @@ builder.Services.AddCors(options =>
 // Adding Authentication
 builder.Services.AddAuthentication(options =>
 {
+
+
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
 })
-
 // Adding Jwt Bearer
 .AddJwtBearer(options =>
 {
@@ -43,16 +52,19 @@ builder.Services.AddAuthentication(options =>
     SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]))
     };
 });
+
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at
-https://aka.ms/aspnetcore/swashbuckle
+
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 // Add DbContext
 builder.Services.AddDbContext<EscolaContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("StringConexaoSQLServer"));
 });
+
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -67,6 +79,5 @@ app.UseCors(MyAllowSpecificOrigins);
 // Authentication & Authorization
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
 app.Run();

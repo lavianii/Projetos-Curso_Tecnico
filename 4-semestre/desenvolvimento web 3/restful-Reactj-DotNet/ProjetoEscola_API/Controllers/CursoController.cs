@@ -66,7 +66,8 @@ namespace ProjetoEscola_API.Controllers
             try
             {
                 var result = await _context.Curso.FindAsync(CursoId);
-                if(CursoId != result.id){
+                if (CursoId != result.id)
+                {
                     return BadRequest();
                 }
                 result.codCurso = dadosCurso.codCurso;
@@ -80,7 +81,7 @@ namespace ProjetoEscola_API.Controllers
             catch
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, "Falhano acesso ao banco de dados.");
-                
+
             }
         }
 

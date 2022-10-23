@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using ProjetoEscola_API.Data;
 using ProjetoEscola_API.Models;
-
 namespace ProjetoEscola_API.Controllers
 {
     [ApiController]
@@ -30,18 +29,16 @@ namespace ProjetoEscola_API.Controllers
         public ActionResult<dynamic> Login([FromBody] User usuario)
         {
             //verifica se existe aluno a ser excluído
-            var user = _context.Usuario.Where(u => u.username == usuario.username &&
-
-            u.senha == usuario.senha)
-
-            .FirstOrDefault();
+            var user = _context.Usuario.Where(u => u.username == usuario.username &&u.senha == usuario.senha).FirstOrDefault();
+            
             if (user == null)
                 return Unauthorized("Usuário ou senha inválidos");
             var authClaims = new List<Claim> {
                 new Claim(ClaimTypes.Name, user.username),
                 new Claim(ClaimTypes.Role, user.role),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                };
+            };
+
             var token = GetToken(authClaims);
             user.senha = "";
             return Ok(new
@@ -50,6 +47,8 @@ namespace ProjetoEscola_API.Controllers
                 user = user
             });
         }
+
+
         [HttpGet]
         [Route("anonymous")]
         [AllowAnonymous]

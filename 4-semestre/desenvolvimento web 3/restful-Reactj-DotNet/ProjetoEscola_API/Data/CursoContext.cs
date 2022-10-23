@@ -8,11 +8,13 @@ namespace ProjetoEscola_API.Data
     {
         protected readonly IConfiguration Configuration;
 
-        public CursoContext(IConfiguration configuration){
+        public CursoContext(IConfiguration configuration)
+        {
             Configuration = configuration;
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder options){
+        protected override void OnConfiguring(DbContextOptionsBuilder options)
+        {
             options.UseSqlServer(Configuration.GetConnectionString("StringConexaoSQLServer"));
         }
 
