@@ -141,7 +141,7 @@ while janela_aberta:
       tela.fill((0, 0, 0))
       game_over()
 
-  # dectata a colisão da comida
+  # de a colisão da comida
   if comida.colliderect(personagem):
     x_comida = randint(40, 600)
     y_comida = randint(50, 600)
