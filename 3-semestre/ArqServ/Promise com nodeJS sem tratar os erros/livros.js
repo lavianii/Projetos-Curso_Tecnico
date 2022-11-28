@@ -10,6 +10,7 @@ async function inclua(livro)
     
     return await conexao.query(sql,dados);
 }
+
 // faz o update no banco
 async function atualize(livro)
 {

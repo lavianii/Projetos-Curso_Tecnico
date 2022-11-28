@@ -2,7 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using ProjetoEscola_API.Data;
@@ -29,7 +29,9 @@ namespace ProjetoEscola_API.Controllers
         public ActionResult<dynamic> Login([FromBody] User usuario)
         {
             //verifica se existe aluno a ser excluído
-            var user = _context.Usuario.Where(u => u.username == usuario.username &&u.senha == usuario.senha).FirstOrDefault();
+            
+            var user = _context.Usuario.Where(u => u.username == usuario.username && 
+            u.senha == usuario.senha).FirstOrDefault();
             
             if (user == null)
                 return Unauthorized("Usuário ou senha inválidos");
