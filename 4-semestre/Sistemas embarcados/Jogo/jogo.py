@@ -60,12 +60,10 @@ fps = pygame.time.Clock()
 
 janela_aberta = True
 while janela_aberta:
-  esta_rodando = True
+
   for event in pygame.event.get():
     if event.type == QUIT:
       janela_aberta = False
-      esta_rodando = False
-
 
   # Velocidade do jogo
   fps.tick(60)
