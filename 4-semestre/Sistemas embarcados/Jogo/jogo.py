@@ -77,9 +77,9 @@ def game_over():
   tela.blit(game_over_text, (int(largura/2 - (game_over_text.get_width()/2)),
             int(altura/2 - game_over_text.get_height()/2)))
 
- #gp.output(17, gp.HIGH)
+ # gp.output(17, gp.HIGH)
  # time.sleep(3)
- #gp.output(17, gp.LOW)
+ # gp.output(17, gp.LOW)
 
   pygame.display.update()
   sleep(3)
