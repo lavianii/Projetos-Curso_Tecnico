@@ -54,7 +54,7 @@ def main_menu():
     vini_text = vini.render(f"RA: 21731 - Vinicius", True, (255, 255, 0))
 
     paulo = pygame.font.SysFont('arial', 20, True, True)
-    paulo_text = paulo.render(f"RA: 21102 - Paulo ", True, (255, 255, 0))
+    paulo_text = paulo.render(f"RA: 20797 - Paulo ", True, (255, 255, 0))
 
     # Mostra na tela os nossos nomes
     tela.blit(jonas_text,(0,500))
