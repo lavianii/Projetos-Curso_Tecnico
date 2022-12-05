@@ -104,15 +104,15 @@ def play_game():
   pygame.display.set_caption('Jogo')
 
   # Movimentar personagem / Spawn do personagem
-  movimento_x = randint(40, 600)
-  movimento_y = randint(40, 600)
+  movimento_x = randint(40, 590)
+  movimento_y = randint(40, 590)
 
   # Spawn dos inimigo
-  x_inimigo1 = randint(40, 600)
-  y_inimigo1 = randint(50, 600)
+  x_inimigo1 = randint(40, 590)
+  y_inimigo1 = randint(50, 590)
 
-  x_inimigo2 = randint(40, 600)
-  y_inimigo2 = randint(50, 600)
+  x_inimigo2 = randint(40, 590)
+  y_inimigo2 = randint(50, 590)
 
   x_inimigo3 = int(largura/2)
   y_inimigo3 = int(altura/2)
@@ -120,8 +120,8 @@ def play_game():
   x_inimigo4 = int(largura/2)
   y_inimigo4 = int(altura/2)
 
-  x_comida = randint(40, 600)
-  y_comida = randint(50, 600)
+  x_comida = randint(40, 590)
+  y_comida = randint(50, 590)
 
   # Font dos pontos
   font = pygame.font.SysFont('arial', 20, True, True)
@@ -191,19 +191,19 @@ def play_game():
       x_inimigo4 += 3
 
     # Controla as bordas
-    if movimento_x >= 600:
+    if movimento_x >= 590:
       game_over()
     if movimento_x <= 0:
       game_over()
-    if movimento_y >= 600:
+    if movimento_y >= 590:
       game_over()
     if movimento_y <= 0:
       game_over()
 
     # Detecta a colisão do inimigo 1
     if inimigo1.colliderect(personagem):
-      x_inimigo1 = randint(40, 600)
-      y_inimigo1 = randint(50, 600)
+      x_inimigo1 = randint(40, 590)
+      y_inimigo1 = randint(50, 590)
       pontos -= 5
       if pontos < 0:
         tela.fill((0, 0, 0))
@@ -211,8 +211,8 @@ def play_game():
 
     # Detecta a colisão do inimigo 2
     if inimigo2.colliderect(personagem):
-      x_inimigo2 = randint(40, 600)
-      y_inimigo2 = randint(50, 600)
+      x_inimigo2 = randint(40, 590)
+      y_inimigo2 = randint(50, 590)
       pontos -= 1
       if pontos < 0:
         tela.fill((0, 0, 0))
@@ -227,8 +227,8 @@ def play_game():
 
     # Detecta colisão da comida
     if comida.colliderect(personagem):
-      x_comida = randint(40, 600)
-      y_comida = randint(50, 600)
+      x_comida = randint(40, 590)
+      y_comida = randint(50, 590)
       pontos += 2
 
     if pontos == 10:
