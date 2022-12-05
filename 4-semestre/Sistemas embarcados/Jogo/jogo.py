@@ -5,7 +5,7 @@ from sys import exit
 import sys
 from random import randint
 #import RPi.GPIO as gp
-import time
+
 
 # gp.setmode(gp.BCM)
 # gp.setup(22, gp.OUT, initial=gp.LOW)  # VERDE
@@ -15,12 +15,13 @@ import time
 pygame.init()
 
 # Construindo a tela
-largura = int(620)
-altura = int(620)
+largura = int(600)
+altura = int(600)
 tela = pygame.display.set_mode((largura, altura))
 
-
+# Funcao para ter a tela inicial
 def draw_text(text, font, color, surface, x, y):
+
     textobj = font.render(text, 1, color)
     textrect = textobj.get_rect()
     textrect.topleft = (x, y)
@@ -29,40 +30,49 @@ def draw_text(text, font, color, surface, x, y):
 
 def main_menu():
 
-  click = False
   font = pygame.font.SysFont(None, 30)
 
   while True:
-    tela.fill((0, 190, 255))
-    draw_text('Menu Inicial', font, (0, 0, 0), tela, 250, 40)
+    # Renderiza a cor de fundo
+    tela.fill((0, 0, 0))
+    
+    # Renderiza o titulo da tela
+    draw_text('Menu Inicial', font, (255, 255, 0), tela, 230, 40)
 
-    mx, my = pygame.mouse.get_pos()
+    # Renderiza os testos com as instrucoes
+    draw_text('Pressione " SPACE " PARA JOGAR', font, (255, 255, 255), tela, 130, 250)
+    draw_text('Pressione " ESC " PARA SAIR', font, (255, 255, 255), tela, 130, 300)
 
-    button_1 = pygame.Rect(200, 100, 230, 50)
-    button_2 = pygame.Rect(200, 180, 230, 50)
+    # Renderiza o dos nomes
+    jonas = pygame.font.SysFont('arial', 20, True, True)
+    jonas_text = jonas.render(f"RA: 21773 - Jonas ", True, (255, 255, 0))
 
-    if button_1.collidepoint((mx, my)):
-      if click:
-        play_game()
-        if button_2.collidepoint((mx, my)):
-            if click:
-              pygame.quit()
-              sys.exit()
+    leticia = pygame.font.SysFont('arial', 20, True, True)
+    leticia_text = leticia.render(f"RA: 21102 - Leticia ", True, (255, 255, 0))
 
-    pygame.draw.rect(tela, (255, 0, 0), button_1)
-    pygame.draw.rect(tela, (255, 0, 0), button_2)
+    vini = pygame.font.SysFont('arial', 20, True, True)
+    vini_text = vini.render(f"RA: 21731 - Vinicius", True, (255, 255, 0))
 
-    draw_text('"P" PARA JOGAR', font, (255, 255, 255), tela, 230, 115)
-    draw_text('"ESC" PARA SAIR', font, (255, 255, 255), tela, 230, 195)
+    paulo = pygame.font.SysFont('arial', 20, True, True)
+    paulo_text = paulo.render(f"RA: 21102 - Paulo ", True, (255, 255, 0))
 
+    # Mostra na tela os nossos nomes
+    tela.blit(jonas_text,(0,500))
+    tela.blit(leticia_text,(0,520))
+    tela.blit(vini_text,(0,540))
+    tela.blit(paulo_text,(0,560))
+
+    # Para controloar os eventos de teclas
     for event in pygame.event.get():
       if event.type == KEYDOWN:
-        if event.key == K_p:
+        if event.key == K_SPACE:
           play_game()
         if event.type == KEYDOWN:
           if event.key == K_ESCAPE:
             pygame.quit()
             sys.exit()
+
+
     pygame.display.update()
 
 
@@ -231,8 +241,8 @@ def play_game():
 def game_win():
 
   # Renderiza o Texto
-  perdeu_font = pygame.font.SysFont('arial', 50, True, True)
-  game_win = perdeu_font.render(f"VOCÊ GANHOU !!", True, (200, 200, 200))
+  ganhou_font = pygame.font.SysFont('arial', 50, True, True)
+  game_win = ganhou_font.render(f"VOCÊ GANHOU !!", True, (200, 200, 200))
 
   # Desenhando os elementos
   tela.fill((0, 0, 0))
