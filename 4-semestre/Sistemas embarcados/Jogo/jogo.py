@@ -4,30 +4,30 @@ from pygame.locals import *
 from sys import exit
 import sys
 from random import randint
-#import RPi.GPIO as gp
-
-
+# import RPi.GPIO as gp
+  
+  
 # gp.setmode(gp.BCM)
 # gp.setup(22, gp.OUT, initial=gp.LOW)  # VERDE
 # gp.setup(17, gp.OUT, initial=gp.LOW)  # VERMELHO
-
-
+  
+  
 pygame.init()
-
+  
 # Construindo a tela
 largura = int(600)
 altura = int(600)
 tela = pygame.display.set_mode((largura, altura))
-
-# Funcao para ter a tela inicial
+  
 def draw_text(text, font, color, surface, x, y):
+# Funcao para ter a tela inicial
 
     textobj = font.render(text, 1, color)
     textrect = textobj.get_rect()
     textrect.topleft = (x, y)
     surface.blit(textobj, textrect)
-
-
+  
+  
 def main_menu():
 
   font = pygame.font.SysFont(None, 30)
@@ -220,6 +220,13 @@ def play_game():
 
     # Detecta a colisão do inimigo 3
     if inimigo3.colliderect(personagem):
+      pontos -= 2
+      if pontos < 0:
+        tela.fill((0, 0, 0))
+        game_over()
+    
+    # Detecta a colisão do inimigo 4
+    if inimigo4.colliderect(personagem):
       pontos -= 2
       if pontos < 0:
         tela.fill((0, 0, 0))
