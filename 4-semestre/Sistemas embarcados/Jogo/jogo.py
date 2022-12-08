@@ -4,12 +4,12 @@ from pygame.locals import *
 from sys import exit
 import sys
 from random import randint
-# import RPi.GPIO as gp
+import RPi.GPIO as gp
   
   
-# gp.setmode(gp.BCM)
-# gp.setup(22, gp.OUT, initial=gp.LOW)  # VERDE
-# gp.setup(17, gp.OUT, initial=gp.LOW)  # VERMELHO
+gp.setmode(gp.BCM)
+gp.setup(22, gp.OUT, initial=gp.LOW)  # VERDE
+gp.setup(17, gp.OUT, initial=gp.LOW)  # VERMELHO
   
   
 pygame.init()
@@ -43,7 +43,7 @@ def main_menu():
     draw_text('Pressione " SPACE " PARA JOGAR', font, (255, 255, 255), tela, 130, 250)
     draw_text('Pressione " ESC " PARA SAIR', font, (255, 255, 255), tela, 130, 300)
 
-    # Renderiza o dos nomes
+    # Renderiza os nomes
     jonas = pygame.font.SysFont('arial', 20, True, True)
     jonas_text = jonas.render(f"RA: 21773 - Jonas ", True, (255, 255, 0))
 
@@ -87,9 +87,9 @@ def game_over():
   tela.blit(game_over_text, (int(largura/2 - (game_over_text.get_width()/2)),
             int(altura/2 - game_over_text.get_height()/2)))
 
- # gp.output(17, gp.HIGH)
- # time.sleep(3)
- # gp.output(17, gp.LOW)
+  gp.output(17, gp.HIGH)
+  sleep(3)
+  gp.output(17, gp.LOW)
 
   pygame.display.update()
   sleep(3)
@@ -131,7 +131,7 @@ def play_game():
 
   # Velocidade do jogo
   fps = pygame.time.Clock()
-
+  
   janela_aberta = True
   while janela_aberta:
 
@@ -256,9 +256,9 @@ def game_win():
   tela.blit(game_win, (int(largura/2 - (game_win.get_width()/2)),
             int(altura/2 - game_win.get_height()/2)))
 
-  #   gp.output(18, gp.HIGH)
-  #   time.sleep(3)
-  #   gp.output(18, gp.LOW)
+  gp.output(18, gp.HIGH)
+  sleep(3)
+  gp.output(18, gp.LOW)
 
   pygame.display.update()
   sleep(5)
